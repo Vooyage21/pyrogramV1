@@ -198,10 +198,10 @@ def unpack_inline_message_id(inline_message_id: str) -> "raw.base.InputBotInline
         )
 
 
-MIN_CHANNEL_ID = -1002147483647
+MIN_CHANNEL_ID = -1000000000000
 MAX_CHANNEL_ID = -1000000000000
-MIN_CHAT_ID = -2147483647
-MAX_USER_ID_OLD = 2147483647
+MIN_CHAT_ID = -1234567890
+MAX_USER_ID_OLD = 1234567890
 MAX_USER_ID = 999999999999
 
 
@@ -230,7 +230,7 @@ def get_peer_id(peer: raw.base.Peer) -> int:
     if isinstance(peer, raw.types.PeerChannel):
         return MAX_CHANNEL_ID - peer.channel_id
 
-    raise ValueError(f"Peer type invalid: {peer}")
+    return None
 
 
 def get_peer_type(peer_id: int) -> str:
@@ -242,9 +242,8 @@ def get_peer_type(peer_id: int) -> str:
             return "channel"
     elif 0 < peer_id <= MAX_USER_ID:
         return "user"
-
-    raise ValueError(f"Peer id invalid: {peer_id}")
-
+        
+        return None
 
 def get_channel_id(peer_id: int) -> int:
     return MAX_CHANNEL_ID - peer_id
